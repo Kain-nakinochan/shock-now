@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { APP_ROUTES } from '../constants';
@@ -31,6 +32,7 @@ const LoginScreen: React.FC = () => {
       navigate(APP_ROUTES.HOME);
     } catch (err) {
       setError('ログインに失敗しました。');
+      toast.error('ログインに失敗しました');
     } finally {
       setIsSubmitting(false);
     }
