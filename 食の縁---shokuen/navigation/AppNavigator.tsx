@@ -7,6 +7,7 @@ import ProducerDetailScreen from '../screens/ProducerDetailScreen';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import ReservationScreen from '../screens/ReservationScreen';
 import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import { APP_ROUTES, MOCK_PRODUCERS, MOCK_POSTS, MOCK_NOTIFICATIONS } from '../constants';
 import { useAuth } from '../context/AuthContext';
@@ -29,13 +30,17 @@ const AppNavigator: React.FC = () => {
         path={APP_ROUTES.HOME} 
         element={<HomeScreen posts={MOCK_POSTS} producers={MOCK_PRODUCERS.slice(0,3)} />} // Show some producers on home too
       />
-      <Route 
-        path={APP_ROUTES.LOGIN} 
-        element={<LoginScreen />} 
+      <Route
+        path={APP_ROUTES.LOGIN}
+        element={<LoginScreen />}
       />
-      <Route 
-        path={APP_ROUTES.PRODUCERS_LIST} 
-        element={<ProducersScreen producers={MOCK_PRODUCERS} />} 
+      <Route
+        path={APP_ROUTES.SIGNUP}
+        element={<SignupScreen />}
+      />
+      <Route
+        path={APP_ROUTES.PRODUCERS_LIST}
+        element={<ProducersScreen producers={MOCK_PRODUCERS} />}
       />
       <Route 
         path={APP_ROUTES.PRODUCER_DETAIL_PARAM} 
@@ -61,13 +66,3 @@ const AppNavigator: React.FC = () => {
           <ProtectedRoute>
             <NotificationsScreen notifications={MOCK_NOTIFICATIONS} />
           </ProtectedRoute>
-        }
-      />
-      
-      {/* Fallback Route */}
-      <Route path="*" element={<Navigate to={APP_ROUTES.HOME} replace />} />
-    </Routes>
-  );
-};
-
-export default AppNavigator;
