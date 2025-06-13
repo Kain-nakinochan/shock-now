@@ -31,6 +31,8 @@ const Header: React.FC = () => {
   const { currentUser, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const unreadNotificationsCount = MOCK_NOTIFICATIONS.filter(n => !n.read).length; // Mock count
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const loggedIn = isAuthenticated || !!token;
 
   const handleLogout = () => {
     logout();
@@ -52,7 +54,7 @@ const Header: React.FC = () => {
             生産者一覧
           </Link>
           
-          {isAuthenticated && currentUser && (
+          {loggedIn && currentUser && (
             <>
               <Link to={APP_ROUTES.NOTIFICATIONS} className="relative text-stone-600 hover:text-green-700 transition-colors">
                 <BellIcon className="w-6 h-6" />
@@ -79,7 +81,7 @@ const Header: React.FC = () => {
               </div>
             </>
           )}
-          {!isAuthenticated && (
+          {!loggedIn && (
             <Link to={APP_ROUTES.LOGIN} className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition-colors">
               ログイン
             </Link>
