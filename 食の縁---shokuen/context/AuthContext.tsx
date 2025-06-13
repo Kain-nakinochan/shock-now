@@ -1,5 +1,4 @@
-
-import React, { createContext, useState, useContext, ReactNode, useCallback } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
 import { User } from '../types';
 import { MOCK_USER, MOCK_PRODUCERS } from '../constants'; // MOCK_PRODUCERSをインポート
 
@@ -21,10 +20,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setCurrentUser(null);
   };
-  
-  const isAuthenticated = !!currentUser;
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setCurrentUser(MOCK_USER);
+    }
+  }, []);
+
+  const isAuthenticated = !!currentUser || !!localStorage.getItem('token');
 
   const toggleFollowProducer = useCallback((producerId: string) => {
     setCurrentUser(prevUser => {
@@ -50,19 +57,3 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         followedProducers: updatedFollowedProducers,
       };
     });
-  }, []);
-
-  return (
-    <AuthContext.Provider value={{ currentUser, login, logout, isAuthenticated, toggleFollowProducer }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
