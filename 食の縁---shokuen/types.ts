@@ -58,6 +58,7 @@ export interface Product {
 export enum AppRoute {
   Home = '/',
   Login = '/login',
+  Signup = '/signup',
   ProducersList = '/producers',
   ProducerDetail = '/producers/:id',
   PostsFeed = '/posts', // Could be same as Home or separate
