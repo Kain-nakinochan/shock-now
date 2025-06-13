@@ -4,6 +4,7 @@ import { Producer, AppRoute, Post, User, Notification } from './types';
 export const APP_ROUTES = {
   HOME: AppRoute.Home,
   LOGIN: AppRoute.Login,
+  SIGNUP: AppRoute.Signup,
   PRODUCERS_LIST: AppRoute.ProducersList,
   PRODUCER_DETAIL_PARAM: AppRoute.ProducerDetail, // For route definition
   PRODUCER_DETAIL: (id: string) => `/producers/${id}`, // For generating links
